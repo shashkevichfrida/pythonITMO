@@ -115,7 +115,7 @@ class Simplex_table:
 
             found, l = self.zeroSolvingElement(i)
             if not found:
-                print("govno")
+                print("Противоречащие ограничения")
                 return
             
             self.jordanStep(l, i)

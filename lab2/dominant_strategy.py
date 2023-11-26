@@ -14,6 +14,8 @@ def dominant_strategy(matrix):
     matrix = np.transpose(matrix)
     print(matrix)
 
+    return matrix
+
 
 def remove_identical_lines(matrix):
     unique_rows_set = OrderedDict.fromkeys(tuple(row) for row in matrix)
@@ -50,7 +52,3 @@ def check_dominant_columns(matrix):
                 submis = 0
     matrix = np.delete(matrix, stroki_for_del, axis=0)
     return matrix
-
-
-
-

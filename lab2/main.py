@@ -12,4 +12,7 @@ matrix = ds.dominant_strategy(matrix)
 
 print("optimal point: ", op.findOptimalPoint(matrix))
 
-os.Find_optimal_strategies(matrix)
+flag, point = op.findOptimalPoint(matrix)
+
+if not flag:
+    os.Find_optimal_strategies(matrix)

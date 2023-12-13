@@ -4,25 +4,26 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 ergodic_markov_chain = np.array([
-    np.array([0.1, 0.3, 0, 0, 0.6, 0, 0, 0], dtype=float),
-    np.array([0.4, 0.1, 0, 0, 0.2, 0.1, 0.2, 0], dtype=float),
-    np.array([0, 0.1, 0.2, 0, 0, 0, 0.7, 0], dtype=float),
-    np.array([0, 0, 0, 0.1, 0, 0, 0.4, 0.5], dtype=float),
+    np.array([0.2, 0.3, 0, 0, 0.4, 0, 0.1, 0], dtype=float),
+    np.array([0.3, 0.1, 0, 0.1, 0.2, 0.1, 0.2, 0], dtype=float),
+    np.array([0, 0.1, 0.2, 0, 0, 0.1, 0.6, 0], dtype=float),
+    np.array([0, 0.3, 0, 0.1, 0.2, 0, 0.4, 0], dtype=float),
     np.array([0.1, 0.2, 0, 0, 0.5, 0.2, 0, 0], dtype=float),
-    np.array([0, 0.1, 0, 0, 0.1, 0.2, 0.6, 0], dtype=float),
-    np.array([0, 0, 0.2, 0.2, 0, 0.3, 0.1, 0.2], dtype=float),
-    np.array([0, 0, 0, 0.2, 0, 0, 0.5, 0.3], dtype=float),
+    np.array([0, 0.1, 0.1, 0, 0.1, 0.2, 0.5, 0], dtype=float),
+    np.array([0.2, 0, 0.2, 0.2, 0, 0.1, 0.1, 0.2], dtype=float),
+    np.array([0, 0.1, 0.1, 0.2, 0, 0, 0.3, 0.3], dtype=float),
 ])
 
-initial_states = np.array([
+initial_states = np.array([  # Два различных вектора вероятностей состояния
     np.array([1, 0, 0, 0, 0, 0, 0, 0], dtype=float),
     np.array([0, 1, 0, 0, 0, 0, 0, 0], dtype=float),
 ])
 
-different_steps = np.array([5, 10, 50])
+different_steps = np.array([5, 10, 15])  # Наши шаги, через которые выводим вектор состояния
+
 
 # графическое представление марковской цепи
-def show_chain(chain: np.ndarray[np.ndarray[float]],vx_names: np.ndarray[str]):
+def show_chain(chain: np.ndarray[np.ndarray[float]], vx_names: np.ndarray[str]):
     g = nx.DiGraph()
     for i, row in enumerate(chain):
         for j, val in enumerate(row):
@@ -38,6 +39,7 @@ def show_chain(chain: np.ndarray[np.ndarray[float]],vx_names: np.ndarray[str]):
     nx.draw_networkx_edge_labels(g, pos, nx.get_edge_attributes(g, 'weight'), font_size=6)
     plt.show()
 
+
 # Функция для построения графика стандартных отклонений на каждом шаге для различных начальных состояний
 def plot_std(eps: float = 1e-6, *args):
     for std in args:
@@ -47,6 +49,7 @@ def plot_std(eps: float = 1e-6, *args):
     plt.ylabel('Std')
     plt.title(f'Std of state distribution. Eps: {eps}')
     plt.show()
+
 
 # Функция для вычисления распределения состояний цепи численным методом
 def state_dist_numeric(chain: np.ndarray[np.ndarray[float]], initial_state: np.ndarray[float],
@@ -80,8 +83,8 @@ def state_dist_analitic(transition_matrix):
     return probability_vec
 
 
-if __name__ == '__main__':
-
+if __name__ == 'main':
+    print("Сумма элементов по строкам:", np.sum(ergodic_markov_chain, axis=1))
     np.set_printoptions(precision=3, suppress=True)
     show_chain(ergodic_markov_chain, np.array(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']))
     stds = []
